@@ -1,5 +1,7 @@
 package com.gildedrose
 
+import com.sun.corba.se.impl.orbutil.closure.Constant
+
 class GildedRose {
     Item[] items
     Map listOfItems = [
@@ -20,53 +22,50 @@ class GildedRose {
     }
 
     void UpdateItemQuality(Item item) {
+        Integer qualityAdjustment = 1
+
         if (!item.name.equals(listOfItems.Brie)
                 && !item.name.equals(listOfItems.BackstagePasses)) {
-            if (item.quality > 0) {
                 if (!item.name.equals(listOfItems.Sulfuras)) {
-                    item.quality = item.quality - 1
+                    adjustQuality(item, 0 - qualityAdjustment)
                 }
-            }
         } else {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1
+            adjustQuality(item, qualityAdjustment)
 
-                if (item.name.equals(listOfItems.BackstagePasses)) {
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1
-                        }
-                    }
+            if (item.name.equals(listOfItems.BackstagePasses)) {
+                if (item.sellIn < 11) {
+                    adjustQuality(item, qualityAdjustment)
+                }
 
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1
-                        }
-                    }
+                if (item.sellIn < 6) {
+                    adjustQuality(item, qualityAdjustment)
                 }
             }
         }
 
         if (!item.name.equals(listOfItems.Sulfuras)) {
-            item.sellIn = item.sellIn - 1
+            item.sellIn = item.sellIn - qualityAdjustment
         }
 
         if (item.sellIn < 0) {
             if (!item.name.equals(listOfItems.Brie)) {
                 if (!item.name.equals(listOfItems.BackstagePasses)) {
-                    if (item.quality > 0) {
-                        if (!item.name.equals(listOfItems.Sulfuras)) {
-                            item.quality = item.quality - 1
-                        }
+                    if (!item.name.equals(listOfItems.Sulfuras)) {
+                        adjustQuality(item, 0 - qualityAdjustment)
                     }
                 } else {
                     item.quality = item.quality - item.quality
                 }
             } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1
-                }
+                adjustQuality(item, qualityAdjustment)
             }
+        }
+    }
+
+    void adjustQuality(Item item, int QUAlITY_ADJUSTMENT) {
+        def adjustedQuality = item.quality + QUAlITY_ADJUSTMENT
+        if (adjustedQuality >= 0 && adjustedQuality <= 50){
+            item.quality = adjustedQuality
         }
     }
 }
