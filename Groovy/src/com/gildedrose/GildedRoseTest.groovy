@@ -9,7 +9,7 @@ class GildedRoseTest {
         def items = [ new Item("foo", 0, 0) ] as Item[]
         def app = new GildedRose(items)
         app.updateQuality()
-        assert "fixme" == app.items[0].name
+        assert "foo" == app.items[0].name
     }
 
 }
