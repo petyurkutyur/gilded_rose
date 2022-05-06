@@ -23,12 +23,14 @@ class GildedRose {
 
     void UpdateItemQuality(Item item) {
         Integer qualityAdjustment = 1
+        Boolean negativeDegrade = (
+                !item.name.equals(listOfItems.Brie) &&
+                !item.name.equals(listOfItems.BackstagePasses) &&
+                !item.name.equals(listOfItems.Sulfuras)
+        )
 
-        if (!item.name.equals(listOfItems.Brie)
-                && !item.name.equals(listOfItems.BackstagePasses)) {
-                if (!item.name.equals(listOfItems.Sulfuras)) {
-                    adjustQuality(item, 0 - qualityAdjustment)
-                }
+        if (negativeDegrade) {
+            adjustQuality(item, 0 - qualityAdjustment)
         } else {
             adjustQuality(item, qualityAdjustment)
 
