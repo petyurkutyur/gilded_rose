@@ -8,7 +8,7 @@ class GildedRose {
             "Brie"            : "Aged Brie",
             "BackstagePasses" : "Backstage passes to a TAFKAL80ETC concert",
             "Sulfuras"        : "Sulfuras, Hand of Ragnaros",
-            "Conjured"        : "Conjured"
+            "Conjured"        : "Conjured Mana Cake"
     ]
 
     GildedRose(Item[] items) {
@@ -28,9 +28,11 @@ class GildedRose {
                 !item.name.equals(listOfItems.BackstagePasses) &&
                 !item.name.equals(listOfItems.Sulfuras)
         )
-
         if (negativeDegrade) {
             adjustQuality(item, 0 - qualityAdjustment)
+            if (item.name.equals(listOfItems.Conjured)){
+                adjustQuality(item, (0 - qualityAdjustment))
+            }
         } else {
             adjustQuality(item, qualityAdjustment)
 

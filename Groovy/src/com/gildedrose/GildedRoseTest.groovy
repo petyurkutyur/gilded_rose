@@ -136,9 +136,9 @@ class GildedRoseTest {
      */
     @Test
     void conjuredDegradeTwiceAsFast() {
-        def items = [ new Item("Conjured", 10, 50) ] as Item[]
+        def items = [ new Item("Conjured Mana Cake", 10, 50) ] as Item[]
         def app = new GildedRose(items)
         app.updateQuality()
-        assert app.items[0].toString().equals(new Item("Conjured", 9, 48) as String)
+        assert app.items[0].toString().equals(new Item("Conjured Mana Cake", 9, 48) as String)
     }
 }
